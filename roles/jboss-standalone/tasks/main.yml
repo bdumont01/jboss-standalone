@@ -11,8 +11,8 @@
 
 - name: Get JBoss zip file
   get_url: 
-  url: http://ip-10-0-0-175.us-east-2.compute.internal/jboss-eap-7.2.0.zip
-  dest: /tmp 
+    url: http://ip-10-0-0-175.us-east-2.compute.internal/jboss-eap-7.2.0.zip
+    dest: /tmp 
 
 - name: Extract archive
   unarchive:
