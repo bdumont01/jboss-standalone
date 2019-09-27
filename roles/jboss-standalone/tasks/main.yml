@@ -1,0 +1,106 @@
+---
+- name: Install Java 1.8 and some basic dependencies
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+   - unzip
+   - java-1.8.0-openjdk
+   - libselinux-python
+   - libsemanage-python
+
+- name: Copy zip file
+  copy:
+    src: jboss-eap-7.2.0.zip
+    dest: /tmp
+
+- name: Extract archive
+  unarchive:
+    dest: /opt
+    src: /tmp/jboss-eap-7.2.0.zip
+    copy: no
+  become: True
+
+- name: Create Oracle dir
+  file:
+    path: /opt/jboss-eap-7.2/modules/system/layers/base/com/oracle/main
+    state: directory
+    mode: '0755'
+  become: True
+
+- name: Copy ojdbc driver
+  copy:
+    src: ojdbc7.jar
+    dest: /opt/jboss-eap-7.2/modules/system/layers/base/com/oracle/main
+  become: True
+
+- name: Copy module file
+  copy:
+    src: module.xml
+    dest: /opt/jboss-eap-7.2/modules/system/layers/base/com/oracle/main
+  become: True
+
+- name: Copying standalone.xml configuration file
+  template:
+    src: standalone.xml
+    dest: /opt/jboss-eap-7.2/standalone/configuration/
+  become: True
+
+- name: Copy init files
+  copy:
+    src: jboss-eap.conf
+    dest: /etc/default
+  become: True
+ 
+- name: Copy init files
+  copy:
+    src: jboss-eap-rhel.sh
+    dest: /etc/init.d
+  become: True
+
+- name: Add permissions
+  file:
+    path: /etc/init.d/jboss-eap-rhel.sh
+    state: touch
+    mode: +x
+  become: True
+
+- name: Add group "jboss"
+  group:
+    name: jboss
+  become: True
+
+- name: Add user "jboss"
+  user:
+    name: jboss
+    group: jboss
+    home: /opt/jboss-eap-7.2
+  become: True
+
+- name: Change ownership of JBoss installation
+  file:
+    path: /opt/jboss-eap-7.2/
+    owner: jboss
+    group: jboss
+    state: directory
+    recurse: yes
+  become: True
+
+- name: Create default JBoss admin user
+  command: /opt/jboss-eap-7.2/bin/add-user.sh -s -r ManagementRealm -u admin -p password
+  become: True
+
+- name: Add service
+  command: /usr/sbin/chkconfig --add /etc/init.d/jboss-eap-rhel.sh
+  become: True
+
+- name: Perform daemon-reload to ensure the changes are picked up
+  systemd:
+    daemon_reload: yes
+  become: True
+
+- name: Start JBoss Server
+  systemd:
+    name: jboss-eap-rhel
+    state: started
+  become: True
