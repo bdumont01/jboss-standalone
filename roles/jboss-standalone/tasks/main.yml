@@ -118,6 +118,14 @@
   - "{{ https_port }}/tcp"
   become: True
 
+- name: deploy firewalld rules                                                                                
+  firewalld:
+    immediate: yes
+    port: 9990/tcp
+    state: enabled
+    permanent: yes
+  become: True
+
 - name: Perform daemon-reload to ensure the changes are picked up
   systemd:
     daemon_reload: yes
