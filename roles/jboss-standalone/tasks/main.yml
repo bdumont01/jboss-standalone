@@ -43,11 +43,11 @@
     dest: /opt/jboss-eap-7.2/modules/system/layers/base/com/oracle/main
   become: True
 
-- name: Copying standalone.xml configuration file
-  template:
-    src: standalone.xml
-    dest: /opt/jboss-eap-7.2/standalone/configuration/
-  become: True
+  #- name: Copying standalone.xml configuration file
+  #  template:
+  #   src: standalone.xml
+  #   dest: /opt/jboss-eap-7.2/standalone/configuration/
+  #  become: True
 
 - name: Copy init files
   copy:
