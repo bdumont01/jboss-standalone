@@ -97,6 +97,27 @@
   command: /usr/sbin/chkconfig --add /etc/init.d/jboss-eap-rhel.sh
   become: True
 
+- name: Ensure that firewalld is installed
+  yum:
+    name: firewalld
+    state: present
+
+- name: Ensure that firewalld is started
+  service:
+    name: firewalld
+    state: started
+
+- name: deploy firewalld rules
+  firewalld:
+    immediate: yes
+    port: "{{ item }}"
+    state: enabled
+    permanent: yes
+  with_items:
+  - "{{ http_port }}/tcp"
+  - "{{ https_port }}/tcp"
+  become: True
+
 - name: Perform daemon-reload to ensure the changes are picked up
   systemd:
     daemon_reload: yes
