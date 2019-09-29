@@ -154,10 +154,6 @@
                     </security>
                 </datasource>
                 <drivers>
-		    <driver name="oracle" module="com.oracle">
-    			<driver-class>oracle.jdbc.driver.OracleDriver</driver-class>
-    			<xa-datasource-class>oracle.jdbc.xa.client.OracleXADataSource</xa-datasource-class>
-	 	    </driver>
                     <driver name="h2" module="com.h2database.h2">
                         <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
                     </driver>
@@ -495,10 +491,10 @@
     </profile>
     <interfaces>
         <interface name="management">
-            <inet-address value="${jboss.bind.address.management:127.0.0.1}"/>
+            <any-address/>
         </interface>
         <interface name="public">
-            <inet-address value="${jboss.bind.address:127.0.0.1}"/>
+            <any-address/>
         </interface>
     </interfaces>
     <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
