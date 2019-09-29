@@ -10,12 +10,12 @@
    - libsemanage-python
 
 - name: Get JBoss zip file
-  #  get_url: 
-  #    url: http://ip-10-0-0-175.us-east-2.compute.internal/jboss-eap-7.2.0.zip
-  #    dest: /tmp 
-  copy:
-    src: /home/bdumont/ansible_playbooks/jboss-eap-7.2.0.zip
-    dest: /tmp
+  get_url: 
+    url: http://ip-10-0-0-175.us-east-2.compute.internal/jboss-eap-7.2.0.zip
+    dest: /tmp 
+    #  copy:
+    #src: /home/bdumont/ansible_playbooks/jboss-eap-7.2.0.zip
+    #dest: /tmp
     
 - name: Extract archive
   unarchive:
