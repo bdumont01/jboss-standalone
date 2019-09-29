@@ -6,7 +6,7 @@
 
 - name: Deploy HelloWorld to JBoss
   jboss:
-    deploy_path: /opt/jboss-eap-7.2/jboss-as/standalone/deployments/
+    deploy_path: /opt/jboss-eap-7.2/standalone/deployments/
     src: /tmp/jboss-helloworld.war
     deployment: helloworld.war
     state: present
