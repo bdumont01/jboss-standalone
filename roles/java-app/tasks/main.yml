@@ -10,6 +10,7 @@
     src: /tmp/jboss-helloworld.war
     deployment: helloworld.war
     state: present
+  become: True
 
     #- name: Copy application WAR file to host
     #  copy:
