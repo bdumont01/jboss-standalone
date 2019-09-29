@@ -31,17 +31,17 @@
     mode: '0755'
   become: True
 
-- name: Copy ojdbc driver
-  copy:
-    src: ojdbc7.jar
-    dest: /opt/jboss-eap-7.2/modules/system/layers/base/com/oracle/main
-  become: True
+  #- name: Copy ojdbc driver
+  #  copy:
+  #    src: ojdbc7.jar
+  #    dest: /opt/jboss-eap-7.2/modules/system/layers/base/com/oracle/main
+  #  become: True
 
-- name: Copy module file
-  copy:
-    src: module.xml
-    dest: /opt/jboss-eap-7.2/modules/system/layers/base/com/oracle/main
-  become: True
+  #- name: Copy module file
+  #  copy:
+  #    src: module.xml
+  #    dest: /opt/jboss-eap-7.2/modules/system/layers/base/com/oracle/main
+  #  become: True
 
 - name: Copying standalone.xml configuration file
   template:
