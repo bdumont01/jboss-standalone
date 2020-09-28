@@ -8,7 +8,8 @@
    - java-1.8.0-openjdk
 #   - libselinux-python
    - python3-libselinux
-   - libsemanage-python
+#   - libsemanage-python
+   - python3-libsemanage
 
 - name: Get JBoss zip file
   get_url: 
